@@ -1,9 +1,48 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const userservice = require('../service/userservice');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.post('/login', function(req, res, next) {
+  var userid = req.body.userid;
+  var inputPassword = req.body.password;
+  userservice.checkUser(userid, inputPassword, function (err, result) {
+    if (String(result)=="") {
+      res.send("no");
+    } else if (inputPassword!=String(result[0].password)) {
+      res.send("passwrong");
+    } else {
+      res.send("success");
+    }
+  })
+});
+
+router.post('/signup', function(req, res, next) {
+  var username = req.body.username;
+  var password = req.body.password;
+  userservice.addUser(username, password, function (err) {
+    if (err) {
+      res.send("exist");
+    } else {
+      userservice.findUser(username, function (err, result) {
+        var userid = result[0].userid;
+        res.send(String(userid));
+      })
+    }
+  })
+});
+
+router.get('/change', function(req, res, next) {
+  var userid = req.body.userid;
+  var username = req.body.username;
+  var password = req.body.password;
+  userservice.changeUser(userid, username, password, function (err) {
+    if (err) {
+      res.send("fail");
+    } else {
+      res.send("success");
+    }
+  })
 });
 
 module.exports = router;
