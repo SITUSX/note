@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     turnToSignup () {
-      this.$router.replace({ path: '/signup' })
+      this.$router.push({ path: '/signup' })
     },
     loginSubmit () {
       this.$refs.loginForm.validate((valid) => {
@@ -62,23 +62,32 @@ export default {
             .then(function (res) {
               if (res.data=='no') {
                 self.$alert('No Such User', 'ERROR', {
-                confirmButtonText: '确定',
-                center: true
+                  confirmButtonText: '确定',
+                  center: true
                 });
               }
               if (res.data == 'passwrong') {
                 self.$alert('Password Wrong', 'ERROR', {
-                confirmButtonText: '确定',
-                center: true
+                  confirmButtonText: '确定',
+                  center: true
                 });
               }
               if (res.data == 'success') {
                 self.$alert('Login Success', 'SUCCESS', {
-                confirmButtonText: '确定',
-                center: true
+                  confirmButtonText: '确定',
+                  center: true,
+                  callback: action => {
+                    self.$router.push({
+                      path: '/home',
+                      name: 'home',
+                      query: {
+                        userid: self.loginForm.userid
+                      }
+                    })
+                  }
                 });
-              }
-              self.logining = false
+            }
+            self.logining = false
             })
         } else {
           this.$alert('Input Invalid', 'ERROR', {

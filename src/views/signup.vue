@@ -23,28 +23,28 @@ import axios from 'axios'
 export default {
   data () {
     var checkName = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('名称不能为空'));
-        } else {
-          callback();
-        }
-      };
-      var validatePassword = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          callback();
-        }
-      };
-      var validateConfirmPassword = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.signupForm.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
+      if (!value) {
+        return callback(new Error('名称不能为空'));
+      } else {
+        callback();
+      }
+    };
+    var validatePassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        callback();
+      }
+    };
+    var validateConfirmPassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.signupForm.password) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
     return {
       signupForm: {
         username: '',
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     backToLogin () {
-      this.$router.replace({ path: '/' })
+      this.$router.push({ path: '/' })
     },
     signupSubmit () {
       this.$refs.signupForm.validate((valid) => {
