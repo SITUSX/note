@@ -2,6 +2,14 @@ const express = require('express');
 const router = express.Router();
 const noteservice = require('../service/noteservice');
 
+router.post('/getNotes', function (req, res, next) {
+  var nbid = req.body.nbid;
+  noteservice.getNotes(nbid, function (err, result) {
+    console.log(result);
+    res.send(result);
+  })
+})
+
 router.get('/getNoteContent', function(req, res, next) {
   var nid = req.body.nid;
   noteservice.getNoteContent(nid, function (err, result) {

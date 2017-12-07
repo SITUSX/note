@@ -1,9 +1,21 @@
 <template>
+  <div>
   <el-row class="home">
     <el-col :span="24" class="header">
-      <el-col :span="8" class="logo">Note</el-col>
-      <el-col :span="14">&nbsp;</el-col>
-			<el-col :span="2" class="userInfo">
+      <el-col :span="8" class="logo">
+        <i class="el-icon-edit"></i>
+        <span>Note</span>
+      </el-col>
+      <el-col :span="12">
+        <el-input
+          placeholder="请输入内容"
+          prefix-icon="el-icon-search"
+          v-model="search"
+          style="width: 300px">
+        </el-input>
+        <el-button type="info">搜索</el-button>
+      </el-col>
+			<el-col :span="4" class="userInfo">
 				<el-dropdown trigger="hover">
           <i class="el-icon-setting" style="margin-right: 15px"></i>
 					<el-dropdown-menu slot="dropdown">
@@ -11,69 +23,153 @@
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
-        <span style="color: #000">{{ this.$route.query.userid }}</span>
+        <span class='welcome'>
+          ID:{{ this.$route.query.userid }}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          Welcome,&nbsp;{{ this.$route.query.username }}&nbsp;!
+        </span>
 			</el-col>
     </el-col>
     <el-col :span="24" class="main">
+      <el-col :span="6">
       <el-aside class="side">
-        <el-menu :default-openeds="['1','2','3']">
-          <el-submenu index="1">
-            <template slot="title">notebook1</template>
-            <el-menu-item index="1-1">note1</el-menu-item>
-            <el-menu-item index="1-2">note2</el-menu-item>
-            <el-menu-item index="1-3">note3</el-menu-item>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">notebook2</template>
-            <el-menu-item index="2-1">note1</el-menu-item>
-            <el-menu-item index="2-2">note2</el-menu-item>
-            <el-menu-item index="2-3">note3</el-menu-item>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">notebook3</template>
-            <el-menu-item index="3-1">note1</el-menu-item>
-            <el-menu-item index="3-2">note2</el-menu-item>
-            <el-menu-item index="3-3">note3</el-menu-item>
-          </el-submenu>
+        <el-menu
+        :default-openeds="['1']"
+        background-color="#eef1f6"
+        text-color="#000"
+        active-text-color="#00BBFF">
+          <!-- <el-submenu v-for="notebook in notebooks">
+            <template slot="title">
+              {{ notebook.nbid}}.{{ notebook.nbname }}
+            </template>
+          </el-submenu> -->
         </el-menu>
       </el-aside>
-      <section class="content">
-
+    </el-col>
+    <el-col :span="12" class="content">
+      <section style="width: 100%; height: 100%">
+        <el-row :gutter="20">
+        <el-col :span="8">
+          <el-input
+            placeholder="notebook-name"
+            v-model="nbname"
+            :disabled="true"
+            style="margin: 0 15px; padding: 0 15px">
+          </el-input>
+        </el-col>
+        <el-col :span="8">
+          <el-input
+            placeholder="note-title"
+            v-model="ntitle"
+            :disabled="true"
+            style="margin: 0 15px; padding: 0 15px">
+          </el-input>
+        </el-col>
+        </el-row>
+        <el-input
+        type="textarea"
+        :rows="10"
+        :disabled="true"
+        v-model="textarea1"
+        class="area">
+        </el-input>
+        <el-row :gutter="20">
+        <el-col :span="8">
+          <el-input
+            placeholder="notebook-name"
+            v-model="nbname"
+            style="margin: 0 15px; padding: 0 15px">
+          </el-input>
+        </el-col>
+        <el-col :span="8">
+          <el-input
+            placeholder="note-title"
+            v-model="ntitle"
+            style="margin: 0 15px; padding: 0 15px">
+          </el-input>
+        </el-col>
+        </el-row>
+        <el-input
+        type="textarea"
+        :rows="10"
+        placeholder="请输入内容"
+        v-model="textarea2"
+        class="area">
+        </el-input>
+        <el-button type="info" plain>
+          撤销
+          <i class="el-icon-circle-close el-icon--right"></i>
+        </el-button>
+        <el-button type="primary">
+          保存
+          <i class="el-icon-upload el-icon--right"></i>
+        </el-button>
       </section>
     </el-col>
+    </el-col>
   </el-row>
+</div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-      }
-    },
-    methods: {
-      init() {
-        var userid = this.$route.query.userid
-      },
-      logout () {
-        this.$confirm('是否退出登录?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-          center: true
-        }).then(() => {
-          this.$router.push({path: '/'})
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          });
-        });
-      }
-    },
-    mounted () {
-      this.init()
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      search:'',
+      nbname:'',
+      ntitle:'',
+      textarea1:'',
+      textarea2:'',
+      notebooks: null,
     }
+  },
+  methods: {
+    init() {
+      var userid = this.$route.query.userid;
+      var username = this.$route.query.username;
+      var self = this;
+      axios({
+        method: 'POST',
+        url: '/api/notebook/getNotebook',
+        data: {
+          userid: userid
+        }
+      }).then(function (res) {
+          self.notebooks = res.data;
+        });
+    },
+    setInfo () {
+      this.$router.push({
+        path: '/change',
+        name: 'change',
+        query: {
+          userid: this.$route.query.userid,
+          username: this.$route.query.username
+        }
+      })
+    },
+    logout () {
+      this.$confirm('是否退出登录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      }).then(() => {
+        this.$router.push({path: '/'})
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+    }
+  },
+  mounted () {
+    this.init()
   }
+}
 </script>
 
 <style>
@@ -94,13 +190,20 @@
 	padding-right: 0px;
 	float: right;
 }
+.welcome {
+  color: #000;
+  font-family: "Helvetica Neue";
+  font-weight: 400;
+  font-size: 15px;
+}
 .logo {
-	height:60px;
+	height: 60px;
   width: 300px;
 	font-size: 22px;
 	border-color: rgba(238,241,146,0.3);
 	border-right-width: 1px;
 	border-right-style: solid;
+  background: #666;
 }
 .main {
   display: flex;
@@ -109,9 +212,20 @@
 	bottom: 0px;
 	overflow: hidden;
 }
+.content {
+  width: 100%;
+  margin: 15px;
+  padding: 15px;
+}
+.area {
+  width:90%;
+  margin: 15px;
+  padding: 15px;
+}
 .side {
   border-color: rgba(238,241,146,0.3);
-  width: 250px;
+  height: 100%;
+  width: 100%;
   background-color: #eef1f6;
 }
 </style>

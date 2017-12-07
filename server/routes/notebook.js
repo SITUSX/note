@@ -3,6 +3,17 @@ const router = express.Router();
 const noteservice = require('../service/noteservice');
 const notebookservice = require('../service/notebookservice');
 
+router.post('/getNotebook', function (req, res, next) {
+  var userid = req.body.userid;
+  notebookservice.getNotebook(userid, function (err, result) {
+    if (err) {
+      res.send('error');
+    } else {
+      res.send(result);
+    }
+  })
+});
+
 router.get('/addNotebook', function (req, res, next) {
   var name = req.body.name;
   var userid = req.body.userid;

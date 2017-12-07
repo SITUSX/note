@@ -10,7 +10,7 @@ exports.query = function(sql, callback) {
 
 exports.insert = function (sql, callback) {
   var db = new sqlite3.Database('./database/note.db');
-  db.run(sql, function(err, result) {
+  db.run(sql, function(err) {
     db.close();
     callback(err);
   });

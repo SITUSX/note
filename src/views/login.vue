@@ -72,7 +72,7 @@ export default {
                   center: true
                 });
               }
-              if (res.data == 'success') {
+              else {
                 self.$alert('Login Success', 'SUCCESS', {
                   confirmButtonText: '确定',
                   center: true,
@@ -81,7 +81,8 @@ export default {
                       path: '/home',
                       name: 'home',
                       query: {
-                        userid: self.loginForm.userid
+                        userid: self.loginForm.userid,
+                        username: res.data
                       }
                     })
                   }

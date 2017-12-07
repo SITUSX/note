@@ -12,7 +12,7 @@ router.post('/login', function(req, res, next) {
     } else if (inputPassword!=String(result[0].password)) {
       res.send("passwrong");
     } else {
-      res.send("success");
+      res.send(String(result[0].username));
     }
   })
 });
@@ -32,7 +32,7 @@ router.post('/signup', function(req, res, next) {
   })
 });
 
-router.get('/change', function(req, res, next) {
+router.post('/change', function(req, res, next) {
   var userid = req.body.userid;
   var username = req.body.username;
   var password = req.body.password;

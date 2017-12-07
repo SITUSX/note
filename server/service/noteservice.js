@@ -1,5 +1,10 @@
 const db = require('../dao/connect');
 
+exports.getNotes = function (nbid, callback) {
+  var sql = 'SELECT `nid`, `ntitle` FROM `notes` WHERE `nbid` = "'+ nbid +'";';
+  db.query(sql, callback);
+};
+
 exports.getNoteContent = function (nid, callback) {
   var sql = 'SELECT `content` FROM `notes` WHERE `nid`= "' + nid + '";';
   db.query(sql, callback);

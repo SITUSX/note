@@ -89,7 +89,17 @@ export default {
                 var message = 'Signup Success, userid is ' + res.data;
                 self.$alert(message, 'ERROR', {
                 confirmButtonText: '确定',
-                center: true
+                center: true,
+                callback: action => {
+                  self.$router.push({
+                    path: '/home',
+                    name: 'home',
+                    query: {
+                      userid: res.data,
+                      username: self.signupForm.username
+                    }
+                  })
+                }
                 });
               }
               if (res.data == 'exist') {

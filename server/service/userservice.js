@@ -1,7 +1,7 @@
 const db = require('../dao/connect');
 
 exports.checkUser = function (userid, password, callback) {
-  var sql = 'SELECT `password` FROM `users` WHERE `userid`= "' + userid + '";';
+  var sql = 'SELECT `username`, `password` FROM `users` WHERE `userid`= "' + userid + '";';
   db.query(sql, callback);
 };
 
