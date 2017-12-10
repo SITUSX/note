@@ -1,7 +1,8 @@
 <template>
   <div>
-  <label>ID.{{ userid }}&nbsp;&nbsp;Name.{{ username }}</label>
-  <label>Token:&nbsp;{{ token }}</label>
+  <p class="label">ID:{{ userid }}&nbsp;&nbsp;Name:{{ username }}</p>
+  <p class="label">Token:&nbsp;{{ token }}</p>
+  <div class="container">
   <br/>
     <el-table
       :data="tableData"
@@ -28,6 +29,7 @@
       </el-table-column>
     </el-table>
   </div>
+</div>
 </template>
 
 <script>
@@ -68,11 +70,29 @@ export default {
 </script>
 
 <style lang="css">
-label {
-  border: 1px solid #e6ebf5;
-  border-radius: 4px;
-  margin: 30px;
+.container {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  background-clip: padding-box;
+  margin: 50px auto;
+  width: 80%;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 25px #cac6c6;
+}
+.label {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  background-clip: padding-box;
+  margin: 10px auto;
+  width: 20%;
   padding: 10px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 10px #cac6c6;
 }
 el-table {
   margin: 20px;
