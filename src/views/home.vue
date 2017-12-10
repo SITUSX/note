@@ -63,7 +63,8 @@
           </template>
           <el-menu-item v-for="note in notes" @click="read(note.nid, note.nbid, note.ntitle, note.nbname)" :key="note.nbid.toString()+note.nid.toString()" :index="note.nbid.toString()+note.nid.toString()">
             <template slot="title">
-              {{ note.nid}}.{{ note.ntitle }}//{{note.nbid}}.{{note.nbname}}
+              {{note.nbid}}.{{note.nbname}}:&nbsp;
+              {{note.nid}}.{{note.ntitle}}
               <el-button type="text" style="float: right" @click="deleteNote(note.nid)">
                 <i class="el-icon-delete"></i>
               </el-button>
@@ -250,6 +251,9 @@ export default {
         this.$alert(display, 'SUCCESS', {
           confirmButtonText: '确定',
           center: true,
+          callback: action => {
+            location.reload();
+          }
         });
       } else {
         this.$alert('Wrong', 'ERROR', {
