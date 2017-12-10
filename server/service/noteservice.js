@@ -34,3 +34,8 @@ exports.changeName = function (nbid, nbname, callback) {
   var sql = 'UPDATE `notes` SET `nbname` = "'+ nbname +'" WHERE `nbid` = "'+ nbid +'";';
   db.update(sql, callback);
 };
+
+exports.search = function (userid, token, callback) {
+  var sql = 'SELECT * FROM `notes` WHERE `content` LIKE "%' + token + '%" OR `nbname` LIKE "%'+token+'%" OR `ntitle` LIKE "%'+token+'%"';
+  db.query(sql, callback);
+};

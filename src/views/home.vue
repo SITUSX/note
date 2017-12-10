@@ -10,10 +10,10 @@
         <el-input
           placeholder="请输入内容"
           prefix-icon="el-icon-search"
-          v-model="search"
+          v-model="token"
           style="width: 300px">
         </el-input>
-        <el-button type="info">搜索</el-button>
+        <el-button type="info" @click="search()">搜索</el-button>
       </el-col>
 			<el-col :span="4" class="userInfo">
         <el-button type="text" @click="addNotebook()">
@@ -155,7 +155,7 @@ export default {
       username: '',
       nbid: '',
       nid: '',
-      search:'',
+      token:'',
       nbname:'',
       nbnameChanged:'',
       ntitle:'',
@@ -372,6 +372,17 @@ export default {
           username: this.username,
           nbid: nbid,
           nbname: nbname
+        }
+      })
+    },
+    search(){
+      this.$router.push({
+        path: '/search',
+        name: 'search',
+        query: {
+          userid: this.userid,
+          username: this.username,
+          token: this.token
         }
       })
     }

@@ -56,4 +56,16 @@ router.post('/deleteNote', function (req, res, next) {
   })
 });
 
+router.post('/search', function (req, res, next) {
+  var userid = req.body.userid;
+  var token = req.body.token;
+  noteservice.search(userid, token, function (err, result) {
+    if (err) {
+      res.send('error');
+    } else {
+      res.send(result);
+    }
+  })
+});
+
 module.exports = router;

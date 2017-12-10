@@ -6,6 +6,7 @@ import home from '@/views/home'
 import change from '@/views/change'
 import newnb from '@/views/newnb'
 import newn from '@/views/newn'
+import search from '@/views/search'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/newn',
       name: 'newn',
       component: newn
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search
     }
   ]
 })
