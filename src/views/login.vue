@@ -1,6 +1,6 @@
 <template>
   <el-form :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px" class="login-container">
-    <h3 class="title">LOGIN</h3>
+    <h2 class="title">Note在线笔记</h2>
     <el-form-item prop="userid">
       <el-input type="text" v-model="loginForm.userid" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>

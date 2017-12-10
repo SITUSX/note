@@ -4,6 +4,8 @@ import login from '@/views/login'
 import signup from '@/views/signup'
 import home from '@/views/home'
 import change from '@/views/change'
+import newnb from '@/views/newnb'
+import newn from '@/views/newn'
 
 Vue.use(Router)
 
@@ -28,6 +30,16 @@ export default new Router({
       path: '/change',
       name: 'change',
       component: change
+    },
+    {
+      path: '/newnb',
+      name: 'newnb',
+      component: newnb
+    },
+    {
+      path: '/newn',
+      name: 'newn',
+      component: newn
     }
   ]
 })

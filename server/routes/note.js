@@ -2,15 +2,14 @@ const express = require('express');
 const router = express.Router();
 const noteservice = require('../service/noteservice');
 
-router.post('/getNotes', function (req, res, next) {
-  var nbid = req.body.nbid;
-  noteservice.getNotes(nbid, function (err, result) {
-    console.log(result);
+router.post('/getAllNote', function (req, res, next) {
+  var userid = req.body.userid;
+  noteservice.getAllNote(userid, function (err, result) {
     res.send(result);
   })
 })
 
-router.get('/getNoteContent', function(req, res, next) {
+router.post('/getNoteContent', function(req, res, next) {
   var nid = req.body.nid;
   noteservice.getNoteContent(nid, function (err, result) {
     var content = result[0].content;
@@ -18,28 +17,42 @@ router.get('/getNoteContent', function(req, res, next) {
   })
 });
 
-router.get('/addNote', function (req, res, next) {
-  var title = req.body.title;
-  var content = req.bidy.content;
+router.post('/addNote', function (req, res, next) {
+  var ntitle = req.body.ntitle;
+  var content = req.body.content;
   var nbid = req.body.nbid;
-  noteservice.addNote(title, content, nbid, function (err) {
-    res.send('success');
+  var nbname = req.body.nbname;
+  var userid = req.body.userid;
+  noteservice.addNote(ntitle, content, nbid, nbname, userid, function (err) {
+    if (err) {
+      res.send('error');
+    } else {
+      res.send('success');
+    }
   })
 });
 
-router.get('/changeNote', function (req, res, next) {
+router.post('/changeNote', function (req, res, next) {
   var nid = req.body.nid;
-  var title = req.body.title;
-  var content = req.bidy.content;
-  noteservice.changeNote(nid, title, content, function (err) {
-    res.send('success');
+  var ntitle = req.body.ntitle;
+  var content = req.body.content;
+  noteservice.changeNote(nid, ntitle, content, function (err) {
+    if (err) {
+      res.send('error');
+    } else {
+      res.send('success');
+    }
   })
 });
 
-router.get('/deleteNote', function (req, res, next) {
+router.post('/deleteNote', function (req, res, next) {
   var nid = req.body.nid;
   noteservice.deleteNote(nid, function (err) {
-    res.send('success');
+    if (err) {
+      res.send('error');
+    } else {
+      res.send('success');
+    }
   })
 });
 

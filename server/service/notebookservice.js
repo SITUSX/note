@@ -5,17 +5,17 @@ exports.getNotebook = function (userid, callback) {
   db.query(sql, callback);
 };
 
-exports.addNotebook = function (name, userid, callback) {
-  var sql = 'INSERT INTO `notebooks`(`nbid`, `nbname`, `userid`) VALUES (null, "'+ name +'", "'+ userid +'");';
+exports.addNotebook = function (nbname, userid, callback) {
+  var sql = 'INSERT INTO `notebooks`(`nbid`, `nbname`, `userid`) VALUES (null, "'+ nbname +'", "'+ userid +'");';
   db.insert(sql, callback);
 };
 
-exports.changeName = function (nbid, name, callback) {
-  var sql = 'UPDATE `notebooks` SET `nbname` = "'+ name +'" WHERE `nbid` = "'+ nbid +'";';
+exports.changeName = function (nbid, nbname, callback) {
+  var sql = 'UPDATE `notebooks` SET `nbname` = "'+ nbname +'" WHERE `nbid` = "'+ nbid +'";';
   db.update(sql, callback);
 };
 
 exports.deleteNotebook = function (nbid, callback) {
   var sql = 'DELETE FROM `notebooks` WHERE `nbid` = "'+ nbid +'"';
   db.delete(sql, callback);
-}
+};

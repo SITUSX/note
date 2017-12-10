@@ -14,27 +14,37 @@ router.post('/getNotebook', function (req, res, next) {
   })
 });
 
-router.get('/addNotebook', function (req, res, next) {
-  var name = req.body.name;
+router.post('/addNotebook', function (req, res, next) {
+  var nbname = req.body.nbname;
   var userid = req.body.userid;
-  notebookservice.addNotebook(name, userid, function (err) {
-    res.send('success');
-  })
-});
-
-router.get('/changeName', function (req, res, next) {
-  var nbid = req.body.nbid;
-  var name = req.body.name;
-  notebookservice.changeName(nbid, name, function (err) {
+  notebookservice.addNotebook(nbname, userid, function (err) {
     if (err) {
       res.send('error');
     } else {
-      res.send('change name success');
+      res.send('success');
     }
   })
 });
 
-router.get('/deleteNotebook', function (req, res, next) {
+router.post('/changeName', function (req, res, next) {
+  var nbid = req.body.nbid;
+  var nbname = req.body.nbname;
+  notebookservice.changeName(nbid, nbname, function (err) {
+    if (err) {
+      res.send('error');
+    } else {
+      noteservice.changeName(nbid, nbname, function (err) {
+        if (err) {
+          res.send('error');
+        } else {
+          res.send('success');
+        }
+      })
+    }
+  })
+});
+
+router.post('/deleteNotebook', function (req, res, next) {
   var nbid = req.body.nbid;
   notebookservice.deleteNotebook(nbid, function (err) {
     if (err) {
@@ -44,7 +54,7 @@ router.get('/deleteNotebook', function (req, res, next) {
         if (err) {
           res.send('error');
         } else {
-          res.send('all success');
+          res.send('success');
         }
       });
     }
