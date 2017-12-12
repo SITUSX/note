@@ -16,13 +16,15 @@
         <el-button type="info" @click="search()">搜索</el-button>
       </el-col>
 			<el-col :span="4" class="userInfo">
-        <el-button type="text" @click="addNotebook()">
-          <i class="el-icon-plus"></i>
-        </el-button>
+        <el-tooltip class="item" effect="dark" content="添加笔记本" placement="bottom">
+          <el-button type="text" @click="addNotebook()">
+            <i class="el-icon-plus"></i>
+          </el-button>
+        </el-tooltip>
 				<el-dropdown trigger="hover">
           <i class="el-icon-setting" style="margin-right: 15px"></i>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item divided @click.native="setInfo">设置</el-dropdown-item>
+						<el-dropdown-item @click.native="setInfo">设置</el-dropdown-item>
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
@@ -444,9 +446,10 @@ export default {
 }
 .area {
   width:90%;
-  margin: 15px;
-  padding: 15px;
+  margin: 30px;
+  padding: 0;
   font-size: 30px;
+  box-shadow: 0 0 10px #cac6c6;
 }
 .side {
   border-color: rgba(238,241,146,0.3);

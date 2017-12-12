@@ -115,7 +115,8 @@ export default {
       text-align: center;
       color: #505458;
     }
-    .remember {
-      margin: 0px 0px 35px 0px;
-  	}
+
+  input, textarea {
+    box-shadow: 0 0 10px #cac6c6;
+  }
 </style>

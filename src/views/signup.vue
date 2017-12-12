@@ -86,7 +86,7 @@ export default {
           })
             .then(function (res) {
               if (res.date != 'exist') {
-                var message = 'Signup Success, userid is ' + res.data;
+                var message = 'Signup Success, userid is  ' + res.data;
                 self.$alert(message, 'ERROR', {
                 confirmButtonText: '确定',
                 center: true,

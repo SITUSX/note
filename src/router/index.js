@@ -7,6 +7,9 @@ import change from '@/views/change'
 import newnb from '@/views/newnb'
 import newn from '@/views/newn'
 import search from '@/views/search'
+import manage from '@/views/manage'
+import user from '@/views/user'
+import mchange from '@/views/mchange'
 
 Vue.use(Router)
 
@@ -46,6 +49,21 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      component: manage
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: user
+    },
+    {
+      path: '/mchange',
+      name: 'mchange',
+      component: mchange
     }
   ]
 })
